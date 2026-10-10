@@ -1,45 +1,34 @@
-# BOMR Final Project: Group 08
+# Autonomous Thymio Navigation with Computer Vision
 
-## Overview
+**EPFL, Basics of Mobile Robotics (MICRO-452), Group 08. Final grade: 6/6.**
 
-This document describes the recommended procedure for setting up the software environment required to run the BOMR Final Project. To ensure full reproducibility and avoid dependency conflicts, the project should be executed in an isolated Python environment.
+A Thymio robot navigates autonomously to a goal on a map observed by an overhead camera. The system builds the map, plans the shortest collision-free path, and follows it. It also handles three disturbances: unexpected obstacles, being lifted and moved ("kidnapping"), and the camera being covered.
 
-## Environment Setup
+**Full technical report (design choices, results, figures):** [`report.ipynb`](report.ipynb)
+**Demo videos:** [Google Drive](https://drive.google.com/drive/folders/1-yAhwDbuhh3VsZBCLwUvYRCsoxUqLP8g?usp=drive_link)
 
-Python 3.13 is required. Both Anaconda and the standard Python venv module are supported.
+## Modules
 
-### Option A: Conda (recommended)
-```
-conda create -n <env_name> python=3.13
-conda activate <env_name>
-```
+| Module | Methods | Author |
+|---|---|---|
+| Vision (`classes/cv/`) | Camera calibration, ArUco detection, homography, obstacle contours (OpenCV) | Adrien Tarbouriech |
+| Global navigation (`classes/gp/`) | Visibility graph, A* search, obstacle inflation | Jiri Blaha |
+| Local navigation (`classes/local_avoidance.py`) | Reactive edge following with proximity sensors, proportional control | Neyl Essakalli |
+| State estimation (`classes/ekf.py`) | Extended Kalman Filter fusing odometry and camera pose | Medina Colabrese |
+| Motion control (`classes/motion_control.py`) | PID controller | Medina Colabrese |
 
-### Option B: Python venv
-```
-python -m venv <env_name>
-```
+Original team repository: [Medina-C/EPFL-BOMR-Project](https://github.com/Medina-C/EPFL-BOMR-Project)
 
-### Activate the virtual environment
+## Running it
 
-**macOS/Linux:**
-```
-source <env_name>/bin/activate
-```
+Requires Python 3.13, a Thymio II robot and a webcam above the map.
 
-**Windows:**
-```
-<env_name>\Scripts\activate
-```
-
-Replace `<env_name>` with your preferred environment name in all commands above.
-
-## Installing Dependencies
-
-Once the virtual environment is active, install all project requirements:
-
-```
+```bash
 pip install -r requirements.txt
+python main.py
 ```
+
+If the camera does not open, change its index in `Vision()` in `main.py` (usually 1 or 2).
 
 ## Running the Demo
 
