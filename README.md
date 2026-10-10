@@ -29,7 +29,3 @@ python main.py
 ```
 
 If the camera does not open, change its index in `Vision()` in `main.py` (usually 1 or 2).
-
-## Running the Demo
-
-The demo can be ran by executing the `main.py` file. If camera isn't loading, change its index in `Vision()` (`main.py`, usually 1 or 2) or disable `cv.CAP_DSHOW` in `classes/cv/vision.py`. Make sure to go over `main.ipynb` first.
